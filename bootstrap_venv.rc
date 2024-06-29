@@ -1,0 +1,41 @@
+###############################################################################
+# Convenience script to create a virtual environment and bootstrap dependencies
+# Needs are simple, hence no use of poetry here
+# 
+# Run this file with `source bootstrap_env.rc` so that the venv's activates 
+# in the parent shell (this works on zsh at least)
+###############################################################################
+
+# This is my local python 3.12, change this for yourself if you want.  I'll make this generic later
+PYTHON="$HOME/homebrew/bin/python3.12"
+EXPECTED_VERSION="3.12"
+
+# Check for python 3.12
+version=$($PYTHON --version)
+if [[ $? -eq 0 ]] && [[ "$version" =~ ^"Python $EXPECTED_VERSION" ]]; then
+    echo "Using Python 3.12 found at $PYTHON for bootstrapping venv"
+    echo "..."
+else
+    echo "The directory of '$PYTHON' is not a Python 3.12 distribution.  Exiting..."
+    exit 1
+fi
+
+# check for venv directory, if it exists, activate, else, create venv
+if [ -d "venv" ]; then
+    echo "Virtual environment already exists.  Skipping creation"
+else
+    echo "Creating virtual environment..."
+    $PYTHON -m venv venv
+    if [ $? -ne 0]; then
+        echo "Failed to create venv.  Exiting..."
+        exit 1
+    fi
+fi
+
+# Activate and setup dependencies
+echo "Attempting to source the virtual environment"
+source venv/bin/activate
+pip install -r requirements.txt
+
+echo 
+echo "Virtual Env bootstrapped and activated.  python is now $(which python3)"

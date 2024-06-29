@@ -1,3 +1,3 @@
-A modernized TUI experience for consuming feeds from various sources.  Initial support will target RSS and limited social networks with permissive read APIs.
+No idea what this is going to be yet.
 
-More to come if I find the time.
+Use python 3.12 in a virtual venv with `source bootstrap_venv.rc`
