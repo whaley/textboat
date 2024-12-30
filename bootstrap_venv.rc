@@ -6,17 +6,17 @@
 # in the parent shell (this works on zsh at least)
 ###############################################################################
 
-# This is my local python 3.12, change this for yourself if you want.  I'll make this generic later
-PYTHON="$HOME/homebrew/bin/python3.12"
-EXPECTED_VERSION="3.12"
+# This is my local python 3.13, change this for yourself if you want.  I'll make this generic later
+PYTHON="$HOME/homebrew/bin/python3.13"
+EXPECTED_VERSION="3.13"
 
-# Check for python 3.12
+# Check for python 3.13
 version=$($PYTHON --version)
 if [[ $? -eq 0 ]] && [[ "$version" =~ ^"Python $EXPECTED_VERSION" ]]; then
-    echo "Using Python 3.12 found at $PYTHON for bootstrapping venv"
+    echo "Using Python 3.13 found at $PYTHON for bootstrapping venv"
     echo "..."
 else
-    echo "The directory of '$PYTHON' is not a Python 3.12 distribution.  Exiting..."
+    echo "The directory of '$PYTHON' is not a Python 3.13 distribution.  Exiting..."
     exit 1
 fi
 
@@ -26,7 +26,7 @@ if [ -d "venv" ]; then
 else
     echo "Creating virtual environment..."
     $PYTHON -m venv venv
-    if [ $? -ne 0]; then
+    if [ $? -ne 0 ]; then
         echo "Failed to create venv.  Exiting..."
         exit 1
     fi
